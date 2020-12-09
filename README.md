@@ -38,7 +38,7 @@ coarse_adjacency_matrix = coarsener.apply(
     num_walks=10,
     p=0.1,
     q=1,
-    number_of_clusters=adjacency_matrix.shape.shape[0] // 5,
+    number_of_clusters=adjacency_matrix.shape[0] // 5,
     clustering_method='kmeans',
     workers=1
 )
