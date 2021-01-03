@@ -28,11 +28,11 @@ You should construct a _Coarsener_ object with the adjacency matrix that you wan
 ```python
 from scipy import sparse
 adjacency_matrix = sparse.random(1000, 1000, format='csr')
+coarsener = Coarsener(adjacency_matrix)
 ```
 ### Applying the method
 ```python
-coarsener = Coarsener(adjacency_matrix)
-coarse_adjacency_matrix = coarsener.apply(
+prolongation_operator = coarsener.apply(
     dimensions=100,
     walk_length=20,
     num_walks=10,
@@ -42,7 +42,12 @@ coarse_adjacency_matrix = coarsener.apply(
     clustering_method='kmeans',
     workers=1
 )
-print(coarse_adjacency_matrix)
+```
+### Getting the coarse (smaller) adjacency matrix
+```python
+restriction_operator = prolongation_operator.transpose()
+coarse_matrix = restriction_operator.dot(adjacency_matrix).dot(prolongation_operator)
+print(coarse_matrix)
 ```
 # Contributing
 Any contribution is **greatly appreciated**. If you think you can improve this work, please open a pull request.

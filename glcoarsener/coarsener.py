@@ -68,9 +68,5 @@ class Coarsener:
                 p[i, j] = 1 if i in groups[j] else 0
         # Performing matrix operations on CSR sparse matrix is more efficient than LIL sparse matrix
         p = p.tocsr()
-        r = p.transpose()
 
-        # Step 4: Compute coarse adjacency matrix
-        coarse_adjacency_matrix = r.dot(self.adjacency_matrix).dot(p)
-
-        return coarse_adjacency_matrix
+        return p

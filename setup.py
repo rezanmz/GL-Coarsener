@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="gl-coarsener",  # Replace with your own username
-    version="1.0.1",
+    version="1.1",
     author="Reza Namazi",
     author_email="rezanmz@ymail.com",
     description="GL-Coarsener, a graph learning based coarsening method",
