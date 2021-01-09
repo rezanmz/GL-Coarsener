@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="gl-coarsener",  # Replace with your own username
-    version="1.1",
+    version="2.0.0",
     author="Reza Namazi",
     author_email="rezanmz@ymail.com",
     description="GL-Coarsener, a graph learning based coarsening method",
@@ -15,7 +15,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/rezanmz/GL-Coarsener",
     packages=setuptools.find_packages(),
-    install_requires=['node2vec', 'scipy',
+    install_requires=['fastnode2vec', 'scipy',
                       'numpy', 'networkx', 'scikit-learn'],
     classifiers=[
         "Programming Language :: Python :: 3",
