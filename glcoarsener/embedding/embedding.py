@@ -1,7 +1,7 @@
 import networkx
-from node2vec import Node2Vec
 import numpy as np
 import time
+from fastnode2vec import Graph, Node2Vec
 
 
 class Embedder:
@@ -36,17 +36,24 @@ class Embedder:
         :return: embedding space as a numpy array of shape (number_of_nodes, dimensions)
         """
         init_time = time.time()
+
+        # Fast node2vec
+        edges = []
+        for u, v in self.graph.edges:
+            edges.append(
+                (str(u), str(v), self.graph.get_edge_data(u, v)['weight']))
+        gr = Graph(edges=edges, directed=True, weighted=True)
         model = Node2Vec(
-            self.graph,
-            dimensions=dimensions,
+            graph=gr,
+            dim=dimensions,
             walk_length=walk_length,
-            num_walks=num_walks,
-            workers=workers,
+            context=10,
             p=p,
-            q=q
+            q=q,
+            workers=workers,
+            sorted_vocab=0
         )
-        # Fit node2vec model
-        model = model.fit()
+        model.train(epochs=num_walks)
 
         # Extract embedding vectors for each node
         embedding_vectors = np.zeros(
