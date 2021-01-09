@@ -1,5 +1,6 @@
 from sklearn.cluster import KMeans, MiniBatchKMeans
 import time
+import numpy as np
 
 
 class Cluster:
@@ -28,9 +29,15 @@ class Cluster:
         for node_index, group_index in enumerate(clusters.labels_):
             groups[group_index].append(node_index)
 
+        groups = [group for group in groups if len(group) != 0]
+        result = []
+        for index, group in enumerate(groups):
+            for node in group:
+                result.append((node, index))
+
         print(
             f'Elapsed time (KMeans clustering): {(time.time() - init_time):.2f}s')
-        return groups
+        return np.array(result)
 
     def minibatch_kmeans(self, number_of_clusters):
         """
@@ -57,6 +64,11 @@ class Cluster:
         for node_index, group_index in enumerate(clusters.labels_):
             groups[group_index].append(node_index)
 
+        groups = [group for group in groups if len(group) != 0]
+        result = []
+        for index, group in enumerate(groups):
+            for node in group:
+                result.append((node, index))
         print(
             f'Elapsed time (Mini-Batch KMeans clustering): {(time.time() - init_time):.2f}s')
-        return groups
+        return np.array(result)

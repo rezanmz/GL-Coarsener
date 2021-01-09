@@ -62,11 +62,8 @@ class Coarsener:
 
         # Step 3: Compute prolongation and restriction operators
         # Manipulating LIL sparse matrix is more efficient than CSR sparse matrix
-        p = lil_matrix((self.adjacency_matrix.shape[0], number_of_clusters))
-        for i in range(self.adjacency_matrix.shape[0]):
-            for j in range(len(groups)):
-                p[i, j] = 1 if i in groups[j] else 0
-        # Performing matrix operations on CSR sparse matrix is more efficient than LIL sparse matrix
+        p = lil_matrix((self.adjacency_matrix.shape[0], max(groups[:, 1]) + 1))
+        p[groups[:, 0], groups[:, 1]] = 1
         p = p.tocsr()
 
         return p
